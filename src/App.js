@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Score } from './features/score/Score.js';
+import { Board } from './features/board/Board.js';
+// Add import statements below
+import { useDispatch } from 'react-redux';
+import { setBoard, resetCards } from './features/board/boardSlice.js';
 
-function App() {
+
+const App = () => {
+  // Add dispatch variable below
+  const dispatch = useDispatch()
+
+  //When you click the ‘New Game’ button all the cards will be hidden and their order randomized.
+  const startGameHandler = () => {
+    // Add action dispatch below
+    dispatch(setBoard())
+  };
+
+// After two cards are flipped, in order to continue the game you need to be able to reset the flipped cards using the Try New Pair button and the resetCards() action creator.
+  const tryAgainHandler = () => {
+    // Add action dispatch below
+    dispatch(resetCards());
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Score />
+      <Board />
+      <footer className="footer">
+        <button onClick={startGameHandler} className="start-button">
+          Start Game
+        </button>
+        <button onClick={tryAgainHandler} className="try-new-pair-button">
+          Try New Pair
+        </button>
+      </footer>
     </div>
   );
-}
+};
 
 export default App;
+
